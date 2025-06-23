@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function AddTOdo({ addItem }) {
   const [value, setValue] = useState("");
-
+  const ref = useRef();
   function handleSubmit(e) {
     e.preventDefault();
     if (!value.trim()) return;
@@ -13,6 +13,9 @@ function AddTOdo({ addItem }) {
     });
     setValue("");
   }
+  useEffect(()=> {
+    ref.current.focus()
+  })
 
   return (
     <div className="add-todo-container">
@@ -23,6 +26,7 @@ function AddTOdo({ addItem }) {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           className="todo-input"
+          ref={ref}
         />
         <input type="submit" value="Add" className="todo-button" />
       </form>
